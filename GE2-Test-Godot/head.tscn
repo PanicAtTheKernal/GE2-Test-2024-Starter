@@ -14,3 +14,4 @@ script = ExtResource("2_nyhuf")
 
 [node name="NoiseWander" type="Node" parent="."]
 script = ExtResource("3_ic38v")
+enabled = false
