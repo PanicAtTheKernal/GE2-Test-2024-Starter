@@ -78,25 +78,20 @@ func create_creature():
 			new_mat.albedo_color = cube_colours[i]
 			box.material = new_mat
 			
-			#var path = creature.get_child(creature.get_child_count()-1).get_path()			
-			#spine_animator.bonePaths.append(path)
 		else:
 			var prev_size = cube_sizes[i-1]
 			var prev_pos = cube_positions[i-1]
-			next_pos.x = prev_size.x + prev_pos.x
+			next_pos.x = prev_size.x + prev_pos.x + 0.1
 			cube_positions[i] = next_pos
 			# Creating the body part
-			var new_body_part = body.instantiate()
+			var new_body_part = body.instantiate() as CharacterBody3D
 			var box = new_body_part.get_child(0)
 			box.size = cube_sizes[i]
-			box.position = next_pos
+			new_body_part.position = next_pos
 			var new_mat = StandardMaterial3D.new()
 			new_mat.albedo_color = cube_colours[i]
 			box.material = new_mat
 			creature.add_child(new_body_part)
-			#var path = creature.get_child(creature.get_child_count()-1).get_path()
-			#spine_animator.bonePaths.append(path)
-			#DebugDraw3D.draw_box(next_pos, Quaternion(Vector3.RIGHT, 0), cube_sizes[i], Color.WHITE)
 	add_child(creature)
 	
 	var spine_animator_child = creature.get_child(0)

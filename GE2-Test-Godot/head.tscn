@@ -8,6 +8,7 @@
 
 [node name="Boid" type="CharacterBody3D"]
 script = ExtResource("1_l8k5a")
+pause = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 material = SubResource("StandardMaterial3D_oglti")
