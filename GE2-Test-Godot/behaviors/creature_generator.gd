@@ -12,6 +12,11 @@ var base_size: float = 1
 @export
 var multiplier: float = 5
 
+@export
+var head: PackedScene
+@export
+var body: PackedScene
+
 var cube_positions: Array[Vector3] = []
 var cube_sizes = []
 
@@ -39,7 +44,8 @@ func _ready():
 func create_cube_locations():
 	for i in range(length):
 		# Need to convert the length to angle
-		var angle = sin((frequency*i)+start_angle)
+		var current_angle = TAU/length
+		var angle = sin(current_angle*i)+start_angle
 		var new_size = remap(angle, 0, TAU, base_size, multiplier)
 		#var new_size = clamp(, 0, base_size)
 		cube_positions.append(Vector3(new_size*i, 0, -(new_size/2)))
