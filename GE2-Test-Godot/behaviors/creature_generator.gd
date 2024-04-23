@@ -19,6 +19,9 @@ var body: PackedScene
 
 var cube_positions: Array[Vector3] = []
 var cube_sizes = []
+var cube_colours: Array[Color] = []
+
+const max_colour = 255;
 
 func _process(delta):
 	create_cube_locations()
@@ -38,22 +41,24 @@ func _process(delta):
 
 func _ready():
 	create_cube_locations()	
-	create_creature()
 	if not Engine.is_editor_hint():	
-		pass	
+		create_creature()	
 		
 
 func create_cube_locations():
 	cube_positions.clear()
 	cube_sizes.clear()
+	cube_colours.clear()
 	for i in range(length):
 		# Need to convert the length to angle
 		var current_angle = TAU/length
 		var angle = sin((i+start_angle)*frequency)
 		var new_size = remap(angle, 0, TAU, base_size, multiplier)
+		var new_colour = remap(angle, 0, TAU, 0, max_colour)
 		#var new_size = clamp(, 0, base_size)
 		cube_positions.append(Vector3(new_size*i, 0, -(new_size/2)))
 		cube_sizes.append(Vector3(new_size, new_size, new_size))
+		cube_colours.append(Color(new_colour, 0, 0))
 
 func create_creature():
 	var creature = Node.new()
@@ -69,6 +74,10 @@ func create_creature():
 			var box = new_head.get_child(0)
 			box.size = cube_sizes[i]
 			creature.add_child(new_head)
+			var new_mat = StandardMaterial3D.new()
+			new_mat.albedo_color = cube_colours[i]
+			box.material = new_mat
+			
 			#var path = creature.get_child(creature.get_child_count()-1).get_path()			
 			#spine_animator.bonePaths.append(path)
 		else:
@@ -81,6 +90,9 @@ func create_creature():
 			var box = new_body_part.get_child(0)
 			box.size = cube_sizes[i]
 			box.position = next_pos
+			var new_mat = StandardMaterial3D.new()
+			new_mat.albedo_color = cube_colours[i]
+			box.material = new_mat
 			creature.add_child(new_body_part)
 			#var path = creature.get_child(creature.get_child_count()-1).get_path()
 			#spine_animator.bonePaths.append(path)

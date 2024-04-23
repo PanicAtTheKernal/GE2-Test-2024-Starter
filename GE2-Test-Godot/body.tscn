@@ -1,5 +1,8 @@
-[gd_scene format=3 uid="uid://b1sioox2nkbsa"]
+[gd_scene load_steps=2 format=3 uid="uid://b1sioox2nkbsa"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3krk5"]
 
 [node name="CharacterBody3D" type="CharacterBody3D"]
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
+material = SubResource("StandardMaterial3D_3krk5")

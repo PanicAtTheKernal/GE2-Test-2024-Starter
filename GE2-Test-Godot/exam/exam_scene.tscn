@@ -15,7 +15,6 @@ script = ExtResource("1_prfgg")
 
 [node name="creature_generator" type="Node3D" parent="."]
 script = ExtResource("2_0c44c")
-frequency = 0.66
 head = ExtResource("3_j58vm")
 body = ExtResource("4_iy8rv")
 
