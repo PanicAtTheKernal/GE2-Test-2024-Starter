@@ -13,11 +13,12 @@ var base_size: float = 1
 var multiplier: float = 5
 
 var cube_positions = []
+var cube_sizes = []
 
 func _process(delta):
-	for cube in cube_positions:
-		DebugDraw3D.draw_box(cube, Quaternion(Vector3.RIGHT, 0), Vector3(base_size, base_size, base_size), Color.WHITE)
-	pass		
+	for i in range(length):
+		DebugDraw3D.draw_box(cube_positions[i], Quaternion(Vector3.RIGHT, 0), cube_sizes[i], Color.WHITE)
+		
 
 func _ready():
 	if not Engine.is_editor_hint():		
@@ -27,5 +28,10 @@ func _ready():
 
 func create_cube_locations():
 	for i in range(length):
+		# Need to convert the length to angle
+		var new_size = sin((frequency*i)+start_angle)*base_size
+		#var new_size = clamp(, 0, base_size)
+		print(new_size)
 		cube_positions.append(Vector3(1*i, 0, 0))
+		cube_sizes.append(Vector3(new_size, new_size, new_size))
 
