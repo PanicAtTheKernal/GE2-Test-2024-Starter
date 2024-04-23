@@ -58,6 +58,7 @@ func create_cube_locations():
 func create_creature():
 	var creature = Node.new()
 	var spine_animator = SpineAnimator.new()
+	spine_animator.name = "SpineAnimator"
 	creature.add_child(spine_animator)
 	for i in range(length):
 		var next_pos = cube_positions[i]
@@ -68,14 +69,29 @@ func create_creature():
 			var box = new_head.get_child(0)
 			box.size = cube_sizes[i]
 			creature.add_child(new_head)
-			spine_animator.bonePaths.append(new_head.get_path())
+			#var path = creature.get_child(creature.get_child_count()-1).get_path()			
+			#spine_animator.bonePaths.append(path)
 		else:
-			pass
-			#var prev_size = cube_sizes[i-1]
-			#var prev_pos = cube_positions[i-1]
-			#next_pos.x = prev_size.x + prev_pos.x
-			#cube_positions[i] = next_pos
+			var prev_size = cube_sizes[i-1]
+			var prev_pos = cube_positions[i-1]
+			next_pos.x = prev_size.x + prev_pos.x
+			cube_positions[i] = next_pos
+			# Creating the body part
+			var new_body_part = body.instantiate()
+			var box = new_body_part.get_child(0)
+			box.size = cube_sizes[i]
+			box.position = next_pos
+			creature.add_child(new_body_part)
+			#var path = creature.get_child(creature.get_child_count()-1).get_path()
+			#spine_animator.bonePaths.append(path)
 			#DebugDraw3D.draw_box(next_pos, Quaternion(Vector3.RIGHT, 0), cube_sizes[i], Color.WHITE)
-	get_parent().add_child(Node.new())
-	get_parent().print_tree()
+	add_child(creature)
+	
+	var spine_animator_child = creature.find_child("SpineAnimator")
+	
+	for child in creature.get_children():
+		# Ingore the spine animator
+		if child.name == "SpineAnimator":
+			continue
+		spine_animator_child.bonePaths.append(child.get_path())
 	pass
