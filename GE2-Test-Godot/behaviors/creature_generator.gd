@@ -49,7 +49,7 @@ func create_cube_locations():
 	for i in range(length):
 		# Need to convert the length to angle
 		var current_angle = TAU/length
-		var angle = sin(i+start_angle)*frequency
+		var angle = sin((i+start_angle)*frequency)
 		var new_size = remap(angle, 0, TAU, base_size, multiplier)
 		#var new_size = clamp(, 0, base_size)
 		cube_positions.append(Vector3(new_size*i, 0, -(new_size/2)))
