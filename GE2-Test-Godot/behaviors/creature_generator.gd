@@ -87,11 +87,11 @@ func create_creature():
 			#DebugDraw3D.draw_box(next_pos, Quaternion(Vector3.RIGHT, 0), cube_sizes[i], Color.WHITE)
 	add_child(creature)
 	
-	var spine_animator_child = creature.find_child("SpineAnimator")
+	var spine_animator_child = creature.get_child(0)
 	
 	for child in creature.get_children():
 		# Ingore the spine animator
 		if child.name == "SpineAnimator":
 			continue
 		spine_animator_child.bonePaths.append(child.get_path())
-	pass
+	spine_animator_child.calculateOffsets()
