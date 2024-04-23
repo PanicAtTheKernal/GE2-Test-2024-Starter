@@ -101,4 +101,7 @@ func create_creature():
 		if child.name == "SpineAnimator":
 			continue
 		spine_animator_child.bonePaths.append(child.get_path())
+	spine_animator_child.damping = 1
+	spine_animator_child.angular_damping = 10
 	spine_animator_child.calculateOffsets()
+	
